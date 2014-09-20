@@ -1,0 +1,24 @@
+name: AdvancedDeath
+main: advanceddeath.AdvancedDeath
+description: Requested Plugin by undeaD_D
+version: 1.0
+author: DieFriiks
+authors: [DieFriiks, CustomCraftDev, undeaD_D]
+databse: false
+commands:
+  ad:
+    usage: /ad <reload/disable/reset>
+    description: Commands from AdvancedDeath plugin
+permissions:
+  market.*:
+    description: AdvancedDeath admin permission
+    children:
+      market.reload: true
+      market.reset: true
+      market.disable: true
+  market.reload:
+    description: reload the AdvancedDeath plugin
+  market.reset:
+    description: reset the AdvancedDeath config
+  market.disable:
+    description: disable the AdvancedDeath plugin, till next server reload
