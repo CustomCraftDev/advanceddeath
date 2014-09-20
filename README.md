@@ -2,7 +2,7 @@ advanceddeath
 =============
 
 Advanced Death @ Respawn                                       
-requested Plugin
+requested Plugin                                                                                            
 [depends on - ]
 
 for: Myph    
@@ -14,7 +14,7 @@ for: Myph
 ======
 
 download: 
-                                                                                                       
+Comming soon ...                                                                                        
 owncloud password: advanceddeath
 
 ======
