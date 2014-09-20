@@ -5,6 +5,11 @@
 debug: false
 nopermission-msg: '&CYou shall not pass !!!'
 
+Groups:
+  - 'Default'
+  - 'Member'
+  - 'Admin'
+
 Death:
   Default:
     Respawn: false
@@ -29,7 +34,8 @@ Death:
     Hotbar: 100
     Onlyfrompvp: true
     Command:
-      - 'say [Admin]%playername% was killed by %killer%'
+      - 'say [Admin]%playername% died'
+      - 'say an Admin was slain by %killer%'
 Respawn:
   Default:
   Member:
