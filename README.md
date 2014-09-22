@@ -10,7 +10,8 @@ for: Myph
 ======
 
 TODO:
- - drop items
+ - drop items / experience
+ - transfer money from player to killer
  - delete items from inventory
  - give player potion effects
  - execture cmd's
