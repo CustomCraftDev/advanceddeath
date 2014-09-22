@@ -4,44 +4,49 @@
 
 debug: false
 nopermission-msg: '&CYou shall not pass !!!'
-
+Onlyfrompvp: false
 Groups:
   - 'Default'
   - 'Member'
   - 'Admin'
 
-Death:
+Settings:
   Default:
     Respawn: false
     Inventory: 100
     Armor: 100
     Hotbar: 100
-    Onlyfrompvp: false
+    Drop_Experience: true
+    Drop_Economy: true
+    Economy: 100
     Command:
-      - 'say [Guest]%playername% was killed'
+      - '[]'
+    Effects:
+      - '[]'
   Member:
     Respawn: false
     Inventory: 100
     Armor: 80
     Hotbar: 100
-    Onlyfrompvp: false
+    Drop_Experience: true
+    Drop_Economy: true
+    Economy: 50
     Command:
       - 'say [Member]%playername% was killed by %killer%'
+    Effects:
+      - '1,60,2'
+      - '10,20,1'
   Admin:
     Respawn: true
     Inventory: 0
     Armor: 1
     Hotbar: 100
-    Onlyfrompvp: true
+    Drop_Experience: true
+    Drop_Economy: true
+    Economy: 10
     Command:
       - 'say [Admin]%playername% died'
       - 'say an Admin was slain by %killer%'
-Respawn:
-  Default:
-  Member:
-    - '1,60,2'
-    - '10,20,1'
-  Admin:
-    - '1,60,4'
-    - '10,50,10'
-    
+    Effects:
+      - '1,60,4'
+      - '10,50,10'   
