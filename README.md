@@ -16,12 +16,14 @@ TODO:
  - give player potion effects
  - execture cmd's
 
-UPDATE:
+UPDATES:
  - commands done
  - config done
  - reload handling done
  - check if player was killed by pvp or pve done
  - tp player to worldspawn ...
+ - added vault hook for economy
+ - config rewritten ... (on request)
 
 ======
 
