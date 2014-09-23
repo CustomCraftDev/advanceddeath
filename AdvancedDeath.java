@@ -4,11 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -23,7 +26,10 @@ public class AdvancedDeath extends JavaPlugin {
     String nopermission_msg;
     boolean debug;
     boolean isplayer;
+    boolean onlyfrompvp;
+    boolean useeco;
     ArrayList<Object[]> groups;
+    Economy economy;
 
 	/**
      * on Plugin enable
@@ -33,7 +39,8 @@ public class AdvancedDeath extends JavaPlugin {
 		loadConfig();
     	say("Config loaded");
     	
-    	groups = loadPermissions();
+    	useeco = setupEconomy();
+    	say("Vault hooked");
     	
     	this.getServer().getPluginManager().registerEvents(new EventListener(this), this);
     	say("Eventlistener loaded");
@@ -49,11 +56,31 @@ public class AdvancedDeath extends JavaPlugin {
 	}
 
 	
+	/*
+	 *  setup Economy with vault
+	 */
+    private boolean setupEconomy()
+    {
+    	try{
+	        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+	        if (economyProvider != null) {
+	            economy = economyProvider.getProvider();
+	        }
+        }catch(Exception e){
+        	if(debug){
+        		e.printStackTrace();
+        	}
+        }
+        return (economy != null);
+    }
+    
+	
 	/**
      * on Command
      * @param sender - command sender
      * @param cmd - command
      * @param alias
+     * @return true or false
      */
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
 		isplayer = false;
@@ -151,28 +178,32 @@ public class AdvancedDeath extends JavaPlugin {
 		saveConfig();
 		
 		debug = config.getBoolean("debug");
-		nopermission_msg = ChatColor.translateAlternateColorCodes('&', config.getString("msg.noperm"));		
+		nopermission_msg = ChatColor.translateAlternateColorCodes('&', config.getString("msg.noperm"));
+		onlyfrompvp = config.getBoolean("Onlyfrompvp");
+    	groups = loadGroups();
 	}
 	
 	
 	/**
-     * load permission settings
+     * load group settings
      */
-	private ArrayList<Object[]> loadPermissions() {
+	private ArrayList<Object[]> loadGroups() {
 		List<String> groups = config.getStringList("Groups");    
 		ArrayList<Object[]> list = new ArrayList<Object[]>();	 
 		
 		for(int i = 0; i < groups.size(); i++){
 			String s = groups.get(i);
-				Object[] temp = new Object[8];
+				Object[] temp = new Object[10];
 					temp[0] = s;
-					temp[1] = config.getBoolean("Death." + s + ".Respawn");
-					temp[2] = config.getInt("Death." + s + ".Inventory");
-					temp[3] = config.getInt("Death." + s + ".Armor");
-					temp[4] = config.getInt("Death." + s + ".Hotbar");
-					temp[5] = config.getBoolean("Death." + s + ".Onlyfrompvp");
-					temp[6] = config.getStringList("Death." + s + ".Command");
-					temp[7] = config.getStringList("Respawn." + s);
+					temp[1] = config.getBoolean("Settings." + s + ".Respawn");
+					temp[2] = config.getInt("Settings." + s + ".Inventory");
+					temp[3] = config.getInt("Settings." + s + ".Armor");
+					temp[4] = config.getInt("Settings." + s + ".Hotbar");
+					temp[5] = config.getBoolean("Settings." + s + ".Drop_Experience");
+					temp[6] = config.getBoolean("Settings." + s + ".Drop_Economy");
+					temp[7] = config.getInt("Settings." + s + ".Economy");
+					temp[8] = config.getStringList("Settings." + s + ".Command");
+					temp[9] = config.getStringList("Settings." + s + ".Effects");
 			list.add(temp);
 		}
 		
@@ -185,14 +216,13 @@ public class AdvancedDeath extends JavaPlugin {
      */
     private void reload(){
  	   	try {
-			  config = null;
-			  nopermission_msg = null;
-			  groups = null;
+			    config = null;
+			    nopermission_msg = null;
+			    groups = null;
+			    economy = null;
 			    
-			  System.gc();
+			    System.gc();
 				reloadConfig();
-				loadConfig();
-				loadPermissions();
 			
  	   	} catch (Exception e) {
         	if(debug){
