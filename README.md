@@ -3,7 +3,7 @@ advanceddeath
 
 Advanced Death @ Respawn                                       
 requested Plugin                                                                                            
-[depends on - ]
+[depends on Vault ]
 
 for: Myph    
 
