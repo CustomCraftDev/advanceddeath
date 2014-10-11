@@ -2,15 +2,16 @@
 # @version 1.0
 # @github https://github.com/CustomCraftDev/advanceddeath
 
-
-nopermission-msg: '&CYou shall not pass !!!'
 debug: false
+nopermission-msg: '&CYou shall not pass !!!'
+
 Onlyfrompvp: false
 Respawn: true
+
 Groups:
-  - 'Default'
-  - 'Member'
   - 'Admin'
+  - 'Member'
+  - 'Default'
 
 Settings:
   Default:
