@@ -1,11 +1,14 @@
 package advanceddeath;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Damageable;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 /**
@@ -17,20 +20,38 @@ public class EventListener implements Listener {
 	
 	/**
      * Constructor
-     * @param AdvancedDeath regioninv
+     * @param advanceddeath plugin
      */
-	public EventListener(advanceddeath regioninv) {
-		this.plugin = regioninv;		
+	public EventListener(advanceddeath plugin) {
+		this.plugin = plugin;		
 	}
 	
 	public void drop(Player p, int i){
 		if(i != -1){
-			//drop with config
-			System.out.println("drop with config");
+				//drop with permissions / config
+				System.out.println("drop with config");
 		}
 		else{
-			//drop as normal
-			System.out.println("drop naturally");
+			// drop inventory
+	        for (ItemStack j : p.getInventory().getContents()){
+	        	if(j != null && j.getType() != Material.AIR){
+	        		p.getWorld().dropItemNaturally(p.getLocation(), j);
+	        		p.getInventory().remove(j);
+	        	}
+	        }
+	        
+	        // drop armor
+	        for (ItemStack k : p.getInventory().getArmorContents()){
+	        	if(k != null && k.getType() != Material.AIR){
+	        		p.getWorld().dropItemNaturally(p.getLocation(), k);
+	        	}
+	        }
+	        p.getInventory().setArmorContents(new ItemStack[] { null, null, null, null } );
+	        
+	        // drop exp 
+	        ((ExperienceOrb)p.getWorld().spawn(p.getLocation(), ExperienceOrb.class)).setExperience(p.getExpToLevel());
+	        p.setExp(0);
+	        
 		}
 	}
 	
