@@ -2,9 +2,11 @@
 # @version 1.0
 # @github https://github.com/CustomCraftDev/advanceddeath
 
-debug: false
+
 nopermission-msg: '&CYou shall not pass !!!'
+debug: false
 Onlyfrompvp: false
+Respawn: true
 Groups:
   - 'Default'
   - 'Member'
@@ -12,38 +14,38 @@ Groups:
 
 Settings:
   Default:
-    Respawn: false
     Inventory: 100
     Armor: 100
     Hotbar: 100
     Drop_Experience: true
     Drop_Economy: true
     Economy: 100
+    Experience: 100
     Command:
-      - '[]'
+      - ''
     Effects:
-      - '[]'
+      - ''
   Member:
-    Respawn: false
     Inventory: 100
     Armor: 80
     Hotbar: 100
     Drop_Experience: true
     Drop_Economy: true
     Economy: 50
+    Experience: 50
     Command:
       - 'say [Member]%playername% was killed by %killer%'
     Effects:
       - '1,60,2'
       - '10,20,1'
   Admin:
-    Respawn: true
     Inventory: 0
     Armor: 1
     Hotbar: 100
     Drop_Experience: true
     Drop_Economy: true
     Economy: 10
+    Experience: 10
     Command:
       - 'say [Admin]%playername% died'
       - 'say an Admin was slain by %killer%'
