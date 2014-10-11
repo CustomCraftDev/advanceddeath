@@ -20,11 +20,12 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @category Advanced Death plugin
  * @version 1.0
  */
-public class AdvancedDeath extends JavaPlugin {
+public class advanceddeath extends JavaPlugin {
 	
     FileConfiguration config;
     String nopermission_msg;
     boolean debug;
+    boolean respawn;
     boolean isplayer;
     boolean onlyfrompvp;
     boolean useeco;
@@ -178,7 +179,8 @@ public class AdvancedDeath extends JavaPlugin {
 		saveConfig();
 		
 		debug = config.getBoolean("debug");
-		nopermission_msg = ChatColor.translateAlternateColorCodes('&', config.getString("msg.noperm"));
+		respawn = config.getBoolean("Repspawn");
+		nopermission_msg = ChatColor.translateAlternateColorCodes('&', config.getString("nopermission-msg"));
 		onlyfrompvp = config.getBoolean("Onlyfrompvp");
     	groups = loadGroups();
 	}
@@ -193,17 +195,17 @@ public class AdvancedDeath extends JavaPlugin {
 		
 		for(int i = 0; i < groups.size(); i++){
 			String s = groups.get(i);
-				Object[] temp = new Object[10];
+				Object[] temp = new Object[11];
 					temp[0] = s;
-					temp[1] = config.getBoolean("Settings." + s + ".Respawn");
 					temp[2] = config.getInt("Settings." + s + ".Inventory");
 					temp[3] = config.getInt("Settings." + s + ".Armor");
 					temp[4] = config.getInt("Settings." + s + ".Hotbar");
 					temp[5] = config.getBoolean("Settings." + s + ".Drop_Experience");
 					temp[6] = config.getBoolean("Settings." + s + ".Drop_Economy");
 					temp[7] = config.getInt("Settings." + s + ".Economy");
-					temp[8] = config.getStringList("Settings." + s + ".Command");
-					temp[9] = config.getStringList("Settings." + s + ".Effects");
+					temp[8] = config.getInt("Settings." + s + ".Experience");
+					temp[9] = config.getStringList("Settings." + s + ".Command");
+					temp[10] = config.getStringList("Settings." + s + ".Effects");
 			list.add(temp);
 		}
 		
@@ -223,6 +225,8 @@ public class AdvancedDeath extends JavaPlugin {
 			    
 			    System.gc();
 				reloadConfig();
+				
+				useeco = setupEconomy();
 			
  	   	} catch (Exception e) {
         	if(debug){
