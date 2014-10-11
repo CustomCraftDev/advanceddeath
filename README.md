@@ -10,20 +10,18 @@ for: Myph
 ======
 
 TODO:
- - drop items / experience
- - transfer money from player to killer
- - delete items from inventory
- - give player potion effects
- - execture cmd's
+ - implement drop chances for every group
+ - give effects afterwards
+ - add money transfer
+ - execute commands afterwards
 
-UPDATES:
- - commands done
- - config done
- - reload handling done
- - check if player was killed by pvp or pve done
- - tp player to worldspawn ...
- - added vault hook for economy
- - config rewritten ... (on request)
+UPDATE:
+ - remade entity death event
+ - added permission based death
+ - added normal death if player has no permission
+  
+Plugin is 85% done ^^^
+ 
 
 ======
 
